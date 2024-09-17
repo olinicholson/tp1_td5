@@ -117,6 +117,7 @@ int main() {
 }
 */
 
+                    
 
 
 int prog_dinamica_2(size_t instancia, size_t m, vector<int>& gpus_solicitadas, vector<int>& beneficios, 
@@ -170,28 +171,6 @@ int prog_dinamica_2(size_t instancia, size_t m, vector<int>& gpus_solicitadas, v
 }
 
 
-/* main con 2 maquinas
-int main() {
-    int n = 5; // Número de instancias
-    int m = 2; // Número de máquinas
-    vector<int> beneficios = {10, 10, 10, 5, 5}; // Beneficios por instancia
-    vector<int> gpus_solicitadas = {5, 5, 5, 5, 5}; // GPUs solicitadas por instancia
-    vector<int> gpus_por_maquina = {20, 10}; // GPUs disponibles por máquina 1 y 2
-    vector<vector<int>> s(n, vector<int>(m, 0)); // Matriz de asignaciones
-
-    // Inicializamos memo: (instancia, GPUs máquina 1, GPUs máquina 2)
-    vector<vector<vector<int>>> memo(n, vector<vector<int>>(gpus_por_maquina[0] + 1, vector<int>(gpus_por_maquina[1] + 1, -1)));
-
-    int max_beneficio = 0;
-
-    // Llamamos a la función de programación dinámica
-    prog_dinamica_2(0, m, gpus_solicitadas, beneficios, gpus_por_maquina[0], gpus_por_maquina[1], s, max_beneficio, memo);
-
-    cout << "El beneficio maximo es: " << max_beneficio << endl;
-
-    return 0;
-}
-*/
 
 int prog_dinamica_3(size_t instancia, size_t m, vector<int>& gpus_solicitadas, vector<int>& beneficios, 
                     int gpus_por_maquina1, int gpus_por_maquina2,int gpus_por_maquina3, vector<vector<int>>& s, 
@@ -319,10 +298,57 @@ int prog_dinamica_4(size_t instancia, size_t m, vector<int>& gpus_solicitadas, v
 }
 
 
+int prog_dinamica (int n, int m, vector<int>& gpus_solicitadas, vector<int>& beneficios,  vector<int> gpus_por_maquina, vector<vector<int>>& s,  int& max_beneficio){
+
+    if (m==2){
+        // Inicializamos memo: (instancia, GPUs máquina 1, GPUs máquina 2)
+        vector<vector<vector<int>>> memo(n, vector<vector<int>>(gpus_por_maquina[0] + 1, vector<int>(gpus_por_maquina[1] + 1, -1)));
+        return prog_dinamica_2(0, m, gpus_solicitadas, beneficios, gpus_por_maquina[0], gpus_por_maquina[1], s, max_beneficio, memo);
+        }
+       
+    
+
+    if (m==3){
+        // Inicializamos memo: (instancia, GPUs máquina 1, GPUs máquina 2)
+        vector<vector<vector<vector<int>>>> memo(n, vector<vector<vector<int>>>(  gpus_por_maquina[0] + 1, 
+        vector<vector<int>>(gpus_por_maquina[1] + 1, vector<int>(gpus_por_maquina[2] + 1,  -1)) ) );
+        return prog_dinamica_3(0, m, gpus_solicitadas, beneficios, gpus_por_maquina[0], gpus_por_maquina[1],gpus_por_maquina[2], s, max_beneficio, memo);
+        }
+       
+
+    if (m==4){
+        // Inicializamos memo: (instancia, GPUs máquina 1, GPUs máquina 2)
+        vector<vector<vector<vector<vector<int>>>>> memo( n, vector<vector<vector<vector<int>>>>(  gpus_por_maquina[0] + 1, vector<vector<vector<int>>>(gpus_por_maquina[1] + 1, 
+        vector<vector<int>>(gpus_por_maquina[2] + 1,  vector<int>(gpus_por_maquina[3] + 1, -1)) ) ));
+        return prog_dinamica_4(0, m, gpus_solicitadas, beneficios, gpus_por_maquina[0], gpus_por_maquina[1],gpus_por_maquina[2],gpus_por_maquina[3], s, max_beneficio, memo);
+        }
+    
+    return 0;
+    }
 
 
+// main con 2 maquinas
 
-//main con 3 maquinas
+int main() {
+    int n = 5; // Número de instancias
+    int m = 2; // Número de máquinas
+    vector<int> beneficios = {1, 1, 10, 5, 5}; // Beneficios por instancia
+    vector<int> gpus_solicitadas = {5, 5, 5, 5, 5}; // GPUs solicitadas por instancia
+    vector<int> gpus_por_maquina = {10, 10}; // GPUs disponibles por máquina 1 y 2
+    vector<vector<int>> s(n, vector<int>(m, 0)); // Matriz de asignaciones
+    int max_beneficio = 0;
+
+    // Llamamos a la función de programación dinámica
+    prog_dinamica(n, m, gpus_solicitadas, beneficios, gpus_por_maquina, s, max_beneficio);
+
+    cout << "El beneficio maximo es: " << max_beneficio << endl;
+
+    return 0;
+}
+
+
+/*
+//main con 4 maquinas
 int main() {
     int n = 5; // Número de instancias
     int m = 4; // Número de máquinas
@@ -331,29 +357,14 @@ int main() {
     vector<int> gpus_por_maquina = {1, 1,13,13}; // GPUs disponibles por máquina 1 y 2
     vector<vector<int>> s(n, vector<int>(m, 0)); // Matriz de asignaciones
     int max_beneficio= 0;
-    // Inicializamos memo: (instancia, GPUs máquina 1, GPUs máquina 3)
-      
-    vector<vector<vector<vector<vector<int>>>>> memo(
-    n, vector<vector<vector<vector<int>>>>(  gpus_por_maquina[0] + 1, 
-        vector<vector<vector<int>>>(gpus_por_maquina[1] + 1, 
-        vector<vector<int>>(gpus_por_maquina[2] + 1,  
-        vector<int>(gpus_por_maquina[3] + 1, -1)) ) ));
-    
-   /*
-    vector<vector<vector<vector<int>>>> memo(
-    n, vector<vector<vector<int>>>(  gpus_por_maquina[0] + 1, 
-        vector<vector<int>>(gpus_por_maquina[1] + 1, 
-        vector<int>(gpus_por_maquina[2] + 1,  
-         -1)) ) );
-
-    int max_beneficio = 0;
-    */
 
 
     // Llamamos a la función de programación dinámica
-    prog_dinamica_4(0, m, gpus_solicitadas, beneficios, gpus_por_maquina[0], gpus_por_maquina[1],gpus_por_maquina[2],gpus_por_maquina[3],s, max_beneficio, memo);
+    prog_dinamica(n, m, gpus_solicitadas, beneficios, gpus_por_maquina,s, max_beneficio);
 
     cout << "El beneficio maximo es: " << max_beneficio << endl;
 
     return 0;
 }
+
+*/
