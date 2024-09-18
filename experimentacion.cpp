@@ -19,8 +19,8 @@ using namespace std::chrono;
 void test_ejemplo_1() {
     cout << "Ejemplo 1: La segunda instancia no puede ser asignada" << endl;
 
-    int n = 5; // Número de instancias
-    int m = 4; // Número de máquinas
+    int n = 5; // Numero de instancias
+    int m = 4; // Numero de máquinas
     vector<int> gpus_solicitadas = {20, 100, 30, 20};
     vector<int> beneficios = {10, 20, 30, 25};
     vector<int> gpus_por_maquina = {50, 50, 50, 50}; // 4 máquinas
@@ -51,14 +51,14 @@ void test_ejemplo_1() {
     // Mostrar promedios
     cout << "Promedio tiempo fuerza bruta: " << total_fuerza_bruta / 10 << " microsec" << endl;
     cout << "Promedio tiempo backtracking: " << total_backtracking / 10 << " microsec" << endl;
-    cout << "Máximo beneficio: " << max_beneficio << endl;
+    cout << "maximo beneficio: " << max_beneficio << endl;
 }
 
 void test_ejemplo_2() {
     cout << "\nEjemplo 2: Todas las instancias pueden ser asignadas" << endl;
 
-    int n = 5; // Número de instancias
-    int m = 4; // Número de máquinas
+    int n = 5; // Numero de instancias
+    int m = 4; // Numero de máquinas
     vector<int> gpus_solicitadas = {10, 20, 30, 20};
     vector<int> beneficios = {10, 20, 30, 25};
     vector<int> gpus_por_maquina = {50, 50, 50, 50}; // 4 máquinas
@@ -89,14 +89,14 @@ void test_ejemplo_2() {
     // Mostrar promedios
     cout << "Promedio tiempo fuerza bruta: " << total_fuerza_bruta / 10 << " microsec" << endl;
     cout << "Promedio tiempo backtracking: " << total_backtracking / 10 << " microsec" << endl;
-    cout << "Beneficio máximo: " << max_beneficio << endl;
+    cout << "Beneficio maximo: " << max_beneficio << endl;
 }
 
 void test_ejemplo_3() {
     cout << "\nEjemplo 3: Ninguna instancia puede ser asignada" << endl;
 
-    int n = 5; // Número de instancias
-    int m = 4; // Número de máquinas
+    int n = 5; // Numero de instancias
+    int m = 4; // Numero de máquinas
     vector<int> gpus_solicitadas = {100, 200, 300, 200};
     vector<int> beneficios = {10, 20, 30, 25};
     vector<int> gpus_por_maquina = {50, 50, 50, 50}; // 4 máquinas
@@ -127,7 +127,7 @@ void test_ejemplo_3() {
     // Mostrar promedios
     cout << "Promedio tiempo fuerza bruta: " << total_fuerza_bruta / 10 << " microsec" << endl;
     cout << "Promedio tiempo backtracking: " << total_backtracking / 10 << " microsec" << endl;
-    cout << "Máximo beneficio: " << max_beneficio << endl;
+    cout << "maximo beneficio: " << max_beneficio << endl;
 }
 
 //PROGRAMACION DINAMICA VS BACKTRACKING
@@ -135,8 +135,8 @@ void test_ejemplo_3() {
 void test_2_maquinas_vs_backtracking() {
     cout << "comparacion entre programacion Dinamica con 2 maquinas vs Backtracking" << endl;
 
-    int n = 5; // Número de instancias
-    int m = 4; // Número de maquinas
+    int n = 5; // Numero de instancias
+    int m = 4; // Numero de maquinas
     vector<int> gpus_solicitadas = {10, 20, 30, 20};
     vector<int> beneficios = {10, 20, 30, 25};
     vector<int> gpus_por_maquina = {50, 50}; // 2 maquinas
@@ -165,8 +165,8 @@ void test_2_maquinas_vs_backtracking() {
 void test_3_maquinas_vs_backtracking() {
     cout << "\ncomparacion entre programacion Dinamica con 3 maquinas vs Backtracking" << endl;
 
-    int n = 5; // Número de instancias
-    int m = 4; // Número de maquinas
+    int n = 5; // Numero de instancias
+    int m = 4; // Numero de maquinas
     vector<int> gpus_solicitadas = {10, 20, 30, 20};
     vector<int> beneficios = {10, 20, 30, 25};
     vector<int> gpus_por_maquina = {50, 50, 50}; // 3 maquinas
@@ -196,8 +196,8 @@ void test_3_maquinas_vs_backtracking() {
 void test_4_maquinas_vs_backtracking() {
     cout << "\ncomparacion entre programacion Dinamica con 4 maquinas vs Backtracking" << endl;
 
-    int n = 5; // Número de instancias
-    int m = 4; // Número de maquinas
+    int n = 5; // Numero de instancias
+    int m = 4; // Numero de maquinas
     vector<int> gpus_solicitadas = {10, 20, 30, 20};
     vector<int> beneficios = {10, 20, 30, 25};
     vector<int> gpus_por_maquina = {50, 50, 50, 50}; // 4 maquinas
@@ -224,10 +224,64 @@ void test_4_maquinas_vs_backtracking() {
     cout << "maximo beneficio: " << max_beneficio << endl;
 }
 
+
+void test_algoritmos_con_mas_instancias() {
+    cout << "Test de tiempo con incremento de instancias" << endl;
+    
+    // Parámetros iniciales
+    vector<int> gpus_por_maquina = {50, 50}; // Para simplificar, probamos con 2 máquinas al inicio
+    int m = gpus_por_maquina.size();         // Numero de máquinas
+    
+    for (int num_instancias = 2; num_instancias <= 6; num_instancias++) {
+        vector<int> gpus_solicitadas(num_instancias);
+        vector<int> beneficios(num_instancias);
+
+        // Generar instancias con valores crecientes de GPUs solicitadas y beneficios
+        for (int i = 0; i < num_instancias; i++) {
+            gpus_solicitadas[i] = 10 + i * 10;  // GPU solicitada incremental
+            beneficios[i] = 5 + i * 5;          // Beneficio incremental
+        }
+
+        vector<vector<int>> s(num_instancias, vector<int>(m, 0)); // Matriz de asignaciones
+        int max_beneficio = 0;
+
+        // Promediar los tiempos en 10 corridas
+        long long tiempo_fuerza_bruta_total = 0;
+        long long tiempo_backtracking_total = 0;
+        long long tiempo_prog_dinamica_total = 0;
+
+        for (int iter = 1; iter < 10; iter++) {
+            // Medir tiempo para fuerza bruta
+            auto start = high_resolution_clock::now();
+            fuerza_bruta(0, m, gpus_solicitadas, beneficios, gpus_por_maquina, s, max_beneficio);
+            auto stop = high_resolution_clock::now();
+            tiempo_fuerza_bruta_total += duration_cast<microseconds>(stop - start).count();
+
+            // Medir tiempo para backtracking
+            start = high_resolution_clock::now();
+            backtracking(0, m, gpus_solicitadas, beneficios, gpus_por_maquina, s, max_beneficio);
+            stop = high_resolution_clock::now();
+            tiempo_backtracking_total += duration_cast<microseconds>(stop - start).count();
+
+            // Medir tiempo para programacion dinamica (con 2 máquinas para este caso)
+            vector<vector<vector<int>>> memo(num_instancias, vector<vector<int>>(gpus_por_maquina[0] + 1, vector<int>(gpus_por_maquina[1] + 1, -1)));
+            start = high_resolution_clock::now();
+            prog_dinamica_2(0, m, gpus_solicitadas, beneficios, gpus_por_maquina[0], gpus_por_maquina[1], s, max_beneficio, memo);
+            stop = high_resolution_clock::now();
+            tiempo_prog_dinamica_total += duration_cast<microseconds>(stop - start).count();
+        }
+
+        // Promediar los tiempos
+        cout << "\Numero de instancias: " << num_instancias << endl;
+        cout << "Promedio tiempo fuerza bruta: " << tiempo_fuerza_bruta_total / 10 << " microsegundos" << endl;
+        cout << "Promedio tiempo backtracking: " << tiempo_backtracking_total / 10 << " microsegundos" << endl;
+        cout << "Promedio tiempo programacion dinamica: " << tiempo_prog_dinamica_total / 10 << " microsegundos" << endl;
+        cout << "maximo beneficio obtenido: " << max_beneficio << endl;
+    }
+}
+
 int main() {
-    test_ejemplo_1();
-    test_ejemplo_2();
-    test_ejemplo_3();
+    test_algoritmos_con_mas_instancias();
 
     return 0;
 }
