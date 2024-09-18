@@ -10,10 +10,10 @@ using namespace std::chrono;
 int main() {
     // Definir tus variables, por ejemplo:
     size_t n = 3; // Número de instancias
-    size_t m = 2; // Número de máquinas
-    vector<int> gpus_solicitadas = {1, 20, 20};
+    size_t m = 4; // Número de máquinas
+    vector<int> gpus_solicitadas = {1, 20, 2};
     vector<int> beneficios = {1, 20, 30};
-    vector<int> gpus_por_maquina = {5, 5};
+    vector<int> gpus_por_maquina = {50,50, 50,50};
     vector<vector<int>> s(n, vector<int>(m, 0));
     int max_beneficio = 0;
 
@@ -41,11 +41,16 @@ int main() {
     // Calcular la duración en milisegundos
     auto duration_back = duration_cast<microseconds>(stop_back - start_back);
 
+
+
+
+    vector<vector<vector<vector<vector<int>>>>> memo( n, vector<vector<vector<vector<int>>>>(  gpus_por_maquina[0] + 1, vector<vector<vector<int>>>(gpus_por_maquina[1] + 1, 
+    vector<vector<int>>(gpus_por_maquina[2] + 1,  vector<int>(gpus_por_maquina[3] + 1, -1)) ) ));
+    
     // Iniciar el cronómetro
     auto start_dp = high_resolution_clock::now();
-
-    // Llamar a la función fuerza_bruta desde tp1.cpp
-    prog_dinamica(n, m, gpus_solicitadas, beneficios, gpus_por_maquina,s, max_beneficio);
+    prog_dinamica_4(0, m, gpus_solicitadas, beneficios, gpus_por_maquina[0], gpus_por_maquina[1],gpus_por_maquina[2],gpus_por_maquina[3], s, max_beneficio, memo);
+  
 
     // Detener el cronómetro
     auto stop_dp = high_resolution_clock::now();
