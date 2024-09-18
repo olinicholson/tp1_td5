@@ -208,7 +208,7 @@ int prog_dinamica_3(size_t instancia, size_t m, vector<int>& gpus_solicitadas, v
                             max_beneficio, memo);
     }
 
-     // Opción 4: Asignar la instancia a la máquina 2 si es posible
+     // Opción 4: Asignar la instancia a la máquina 3 si es posible
     int beneficio_asignar_maquina3 = 0;
     if (gpus_solicitadas[instancia] <= gpus_por_maquina3) {
         beneficio_asignar_maquina3 = beneficios[instancia] + 
@@ -308,7 +308,7 @@ int prog_dinamica (int n, int m, vector<int>& gpus_solicitadas, vector<int>& ben
        
     
 
-    if (m==3){
+    else if (m==3){
         // Inicializamos memo: (instancia, GPUs máquina 1, GPUs máquina 2)
         vector<vector<vector<vector<int>>>> memo(n, vector<vector<vector<int>>>(  gpus_por_maquina[0] + 1, 
         vector<vector<int>>(gpus_por_maquina[1] + 1, vector<int>(gpus_por_maquina[2] + 1,  -1)) ) );
@@ -316,7 +316,7 @@ int prog_dinamica (int n, int m, vector<int>& gpus_solicitadas, vector<int>& ben
         }
        
 
-    if (m==4){
+    else if (m==4){
         // Inicializamos memo: (instancia, GPUs máquina 1, GPUs máquina 2)
         vector<vector<vector<vector<vector<int>>>>> memo( n, vector<vector<vector<vector<int>>>>(  gpus_por_maquina[0] + 1, vector<vector<vector<int>>>(gpus_por_maquina[1] + 1, 
         vector<vector<int>>(gpus_por_maquina[2] + 1,  vector<int>(gpus_por_maquina[3] + 1, -1)) ) ));
@@ -326,6 +326,8 @@ int prog_dinamica (int n, int m, vector<int>& gpus_solicitadas, vector<int>& ben
     return 0;
     }
 
+
+/*
 
 // main con 2 maquinas
 
@@ -346,7 +348,7 @@ int main() {
     return 0;
 }
 
-
+*/
 /*
 //main con 4 maquinas
 int main() {
