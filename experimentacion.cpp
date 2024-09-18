@@ -41,9 +41,22 @@ int main() {
     // Calcular la duración en milisegundos
     auto duration_back = duration_cast<microseconds>(stop_back - start_back);
 
+    // Iniciar el cronómetro
+    auto start_dp = high_resolution_clock::now();
+
+    // Llamar a la función fuerza_bruta desde tp1.cpp
+    prog_dinamica(n, m, gpus_solicitadas, beneficios, gpus_por_maquina,s, max_beneficio);
+
+    // Detener el cronómetro
+    auto stop_dp = high_resolution_clock::now();
+
+    // Calcular la duración en milisegundos
+    auto duration_dp = duration_cast<microseconds>(stop_dp - start_dp);
+
     // Mostrar el tiempo de ejecución y el máximo beneficio
     cout << "Tiempo de ejecucion fuerza bruta: " << duration_fb.count() << " microsec" << endl;
     cout << "Tiempo de ejecucion back: " << duration_back.count() << " microsec" << endl;
+    cout << "Tiempo de ejecucion dp: " << duration_dp.count() << " microsec" << endl;
     cout << "Maximo beneficio: " << max_beneficio << endl;
 
     return 0;
