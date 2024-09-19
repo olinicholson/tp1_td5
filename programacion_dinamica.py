@@ -148,64 +148,42 @@ def prog_dinamica_4(instancia, m, gpus_solicitadas, beneficios,
 
 def prog_dinamica (n, m, gpus_solicitadas, beneficios, gpus_por_maquina, s, max_beneficio):
 
+    # Inicializamos la tabla de memoización dependiendo de cuántas máquinas hay
     if m == 2:
-    # Inicializamos la tabla de memoización como una lista 3D: (instancia, GPUs máquina 1, GPUs máquina 2)
         memo = [[[-1 for _ in range(gpus_por_maquina[1] + 1)] 
                 for _ in range(gpus_por_maquina[0] + 1)] 
                 for _ in range(n)]
-        
-        return prog_dinamica_2(0, m, gpus_solicitadas, beneficios, 
-                            gpus_por_maquina[0], gpus_por_maquina[1], s, max_beneficio, memo)
+        funcion_seleccionada = prog_dinamica_2
 
-    
-
-    elif (m==3):
-        #Inicializamos memo: (instancia, GPUs máquina 1, GPUs máquina 2)
+    elif m == 3:
         memo = [[[[-1 for _ in range(gpus_por_maquina[2] + 1)] 
-            for _ in range(gpus_por_maquina[1] + 1)] 
-            for _ in range(gpus_por_maquina[0] + 1)] 
-            for _ in range(n)]
+                for _ in range(gpus_por_maquina[1] + 1)] 
+                for _ in range(gpus_por_maquina[0] + 1)] 
+                for _ in range(n)]
+        funcion_seleccionada = prog_dinamica_3
 
-        return prog_dinamica_3(0, m, gpus_solicitadas, beneficios, gpus_por_maquina[0], gpus_por_maquina[1],gpus_por_maquina[2], s, max_beneficio, memo)
-
-    elif (m==4):
-        #Inicializamos memo: (instancia, GPUs máquina 1, GPUs máquina 2)
+    elif m == 4:
         memo = [[[[[-1 for _ in range(gpus_por_maquina[3] + 1)] 
-            for _ in range(gpus_por_maquina[2] + 1)] 
-            for _ in range(gpus_por_maquina[1] + 1)] 
-            for _ in range(gpus_por_maquina[0] + 1)] 
-            for _ in range(n)]
-
-        return prog_dinamica_4(0, m, gpus_solicitadas, beneficios, gpus_por_maquina[0], gpus_por_maquina[1],gpus_por_maquina[2],gpus_por_maquina[3], s, max_beneficio, memo)
+                for _ in range(gpus_por_maquina[2] + 1)] 
+                for _ in range(gpus_por_maquina[1] + 1)] 
+                for _ in range(gpus_por_maquina[0] + 1)] 
+                for _ in range(n)]
+        funcion_seleccionada = prog_dinamica_4
     
-    return 0
-
-def test_ejemplo_1():
-    print("Ejemplo 1: La segunda instancia no puede ser asignada")
-
-    n = 5  # Número de instancias
-    m = 4  # Número de máquinas
-    gpus_solicitadas = [20, 100, 30, 20]  # GPUs solicitadas por instancia
-    beneficios = [10, 20, 30, 25]  # Beneficios por instancia
-    gpus_por_maquina = [50, 50, 50, 50]  # GPUs disponibles por máquina
-    s = [[0 for _ in range(m)] for _ in range(n)]  # Matriz de asignaciones
-    max_beneficio = 0
-
-    # Variables para promediar tiempos
-    total_dinamica = 0
-
-    # Ejecutar 10 veces para programación dinámica
-    for i in range(10):
-        start = time.time()
-        max_beneficio = prog_dinamica(n, m, gpus_solicitadas, beneficios, gpus_por_maquina, s, max_beneficio)
-        stop = time.time()
-        total_dinamica += (stop - start) * 1e6  # Convertir a microsegundos
-
-    # Mostrar promedios
-    print(f"Promedio tiempo programación dinámica: {total_dinamica / 10:.2f} microsegundos")
-    print(f"Máximo beneficio: {max_beneficio}")
-
-test_ejemplo_1()
+    # Ejecutar la función de programación dinámica seleccionada
+    if m == 2:
+        resultado = funcion_seleccionada(0, m, gpus_solicitadas, beneficios, 
+                                        gpus_por_maquina[0], gpus_por_maquina[1], s, max_beneficio, memo)
+    elif m == 3:
+        resultado = funcion_seleccionada(0, m, gpus_solicitadas, beneficios, 
+                                        gpus_por_maquina[0], gpus_por_maquina[1], gpus_por_maquina[2], 
+                                        s, max_beneficio, memo)
+    elif m == 4:
+        resultado = funcion_seleccionada(0, m, gpus_solicitadas, beneficios, 
+                                        gpus_por_maquina[0], gpus_por_maquina[1], gpus_por_maquina[2], 
+                                        gpus_por_maquina[3], s, max_beneficio, memo)
+    
+    return resultado
 '''
 # Ejemplo de uso
 n = 5  # Número de instancias
