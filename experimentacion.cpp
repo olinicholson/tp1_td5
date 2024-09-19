@@ -280,6 +280,37 @@ void test_algoritmos_con_mas_instancias() {
     }
 }
 
+// TEST PARA 4 MAQUINAS CON  500 GPUS CADA UNA
+void test_4_maquinas_gpu500() {
+    cout << "Test con 4 máquinas de 500 GPUs cada una" << endl;
+
+    int n = 5; // Número de instancias
+    int m = 4; // Número de máquinas
+    vector<int> gpus_solicitadas = {100, 200, 150, 80, 50}; // GPUs solicitadas por cada instancia
+    vector<int> beneficios = {50, 100, 75, 40, 20}; // Beneficio por cada instancia
+    vector<int> gpus_por_maquina = {500, 500, 500, 500}; // GPUs disponibles por cada máquina
+
+    vector<vector<int>> s(n, vector<int>(m, 0)); // Matriz de asignaciones (vacía para este ejemplo)
+    int max_beneficio = 0;
+
+    // Tabla de memoización inicializada en -1
+    vector<vector<vector<vector<vector<int>>>>> memo(
+        n, vector<vector<vector<vector<int>>>>(
+            gpus_por_maquina[0] + 1, vector<vector<vector<int>>>(
+                gpus_por_maquina[1] + 1, vector<vector<int>>(
+                    gpus_por_maquina[2] + 1, vector<int>(gpus_por_maquina[3] + 1, -1)))));
+
+    // Medir tiempo de ejecución
+    auto start = high_resolution_clock::now();
+    prog_dinamica_4(0, m, gpus_solicitadas, beneficios, gpus_por_maquina[0], gpus_por_maquina[1], gpus_por_maquina[2], gpus_por_maquina[3], s, max_beneficio, memo);
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(stop - start);
+
+    cout << "Tiempo de ejecución: " << duration.count() << " microsegundos" << endl;
+    cout << "Máximo beneficio obtenido: " << max_beneficio << endl;
+}
+
+
 int main() {
     test_algoritmos_con_mas_instancias();
 
