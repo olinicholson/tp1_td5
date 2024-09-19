@@ -1,4 +1,6 @@
 from typing import List
+import time
+
 def prog_dinamica_2 (instancia, m, gpus_solicitadas,beneficios, gpus_por_maquina1, gpus_por_maquina2, s, max_beneficio, memo):
     
     # Caso base: cuando hemos considerado todas las instancias
@@ -178,17 +180,56 @@ def prog_dinamica (n, m, gpus_solicitadas, beneficios, gpus_por_maquina, s, max_
     
     return 0
 
+def test_ejemplo_1():
+    print("Ejemplo 1: La segunda instancia no puede ser asignada")
 
-# Ejemplo con 2 máquinas
-n = 3  # Número de instancias
-m = 2  # Número de máquinas
-gpus_solicitadas = [100, 2000, 2]  # GPUs solicitadas por instancia
-beneficios = [1, 20, 30]  # Beneficios por instancia
-gpus_por_maquina = [100, 100]  # GPUs disponibles por máquina
+    n = 5  # Número de instancias
+    m = 4  # Número de máquinas
+    gpus_solicitadas = [20, 100, 30, 20]  # GPUs solicitadas por instancia
+    beneficios = [10, 20, 30, 25]  # Beneficios por instancia
+    gpus_por_maquina = [50, 50, 50, 50]  # GPUs disponibles por máquina
+    s = [[0 for _ in range(m)] for _ in range(n)]  # Matriz de asignaciones
+    max_beneficio = 0
+
+    # Variables para promediar tiempos
+    total_dinamica = 0
+
+    # Ejecutar 10 veces para programación dinámica
+    for i in range(10):
+        start = time.time()
+        max_beneficio = prog_dinamica(n, m, gpus_solicitadas, beneficios, gpus_por_maquina, s, max_beneficio)
+        stop = time.time()
+        total_dinamica += (stop - start) * 1e6  # Convertir a microsegundos
+
+    # Mostrar promedios
+    print(f"Promedio tiempo programación dinámica: {total_dinamica / 10:.2f} microsegundos")
+    print(f"Máximo beneficio: {max_beneficio}")
+
+test_ejemplo_1()
+'''
+# Ejemplo de uso
+n = 5  # Número de instancias
+m = 4  # Número de máquinas
+gpus_solicitadas = [20, 100, 30, 20]  # GPUs solicitadas por instancia
+beneficios = [10, 20, 30, 25]  # Beneficios por instancia
+gpus_por_maquina = [50, 50, 50, 50]  # GPUs disponibles por máquina
 s = [[0 for _ in range(m)] for _ in range(n)]
 max_beneficio = 0
 
-# Llamamos a la función de programación dinámica
+# Iniciar el temporizador
+start_time = time.time()
+
+# Llamar a la función
 max_beneficio = prog_dinamica(n, m, gpus_solicitadas, beneficios, gpus_por_maquina, s, max_beneficio)
+
+# Finalizar el temporizador
+end_time = time.time()
+
+# Convertir el tiempo a microsegundos y mostrar el resultado
+execution_time_microseconds = (end_time - start_time) * 1_000_000
+
+# Imprimir el tiempo de ejecución y el resultado
 print(f'El beneficio máximo es: {max_beneficio}')
+print(f'Tiempo de ejecución: {execution_time_microseconds:.2f} microsegundos')
+'''
 
