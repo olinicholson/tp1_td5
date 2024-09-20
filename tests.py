@@ -28,7 +28,7 @@ def test_ejemplo_1():
         total_dinamica += (stop - start) * 1e6  # Convertir a microsegundos
 
     # Mostrar promedios
-    print(f"Promedio tiempo programación dinámica (ejemplo 2): {total_dinamica / 10:.2f} microsegundos")
+    print(f"Promedio tiempo programación dinámica: {total_dinamica / 10:.2f} microsegundos")
     
 def test_ejemplo_2():
     print("Ejemplo 2: hacemos un ejemplo con 3 maquinas")
@@ -58,7 +58,7 @@ def test_ejemplo_2():
         total_dinamica += (stop - start) * 1e6  # Convertir a microsegundos
 
     # Mostrar promedios
-    print(f"Promedio tiempo programación dinámica (ejemplo 4): {total_dinamica / 10:.2f} microsegundos")
+    print(f"Promedio tiempo programación dinámica: {total_dinamica / 10:.2f} microsegundos")
     
 def test_ejemplo_3():
     print("Ejemplo 3: Hacemos un ejemplo con 4 maquinas")
